@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT MCQ Quiz – Second Preparatory Grade</title>
+<style>
+:root{--navy:#14213d;--blue:#2563eb;--pale:#eff6ff;--ink:#172033;--muted:#64748b;--line:#e2e8f0;--green:#15803d;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+header{background:linear-gradient(125deg,#14213d,#1d4ed8);color:white;padding:28px 18px}
+.head{max-width:1050px;margin:auto}header h1{margin:0 0 6px;font-size:clamp(23px,4vw,34px)}header p{margin:0;color:#dbeafe}
+.wrap{max-width:1050px;margin:24px auto;padding:0 16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.stat,.panel,.question{background:white;border:1px solid var(--line);border-radius:14px;box-shadow:0 5px 18px #0f172a0a}
+.stat{padding:13px 16px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:21px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:16px 0}
+button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer;font-size:14px}
+.primary{background:var(--blue);color:white}.secondary{background:#e8eef8;color:var(--navy)}.danger{background:#fee2e2;color:#991b1b}
+button:disabled{opacity:.45;cursor:not-allowed}
+.progress{height:9px;background:#e2e8f0;border-radius:20px;overflow:hidden;margin:12px 0 20px}.bar{height:100%;width:0;background:#3b82f6;transition:width .2s}
+.question{padding:20px;margin-bottom:15px}.qtop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:13px;margin-bottom:8px}.question h3{font-size:17px;margin:0 0 14px}
+.option{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin:8px 0;cursor:pointer;transition:.15s}
+.option:hover{background:#f8fbff;border-color:#93c5fd}.option input{margin-top:4px;accent-color:var(--blue)}
+.option.selected{background:var(--pale);border-color:#60a5fa}
+.option.correct{background:#f0fdf4;border-color:#86efac}.option.wrong{background:#fef2f2;border-color:#fca5a5}
+.feedback{font-size:14px;margin-top:10px;font-weight:700}.good{color:var(--green)}.bad{color:var(--red)}
+.result{display:none;padding:22px;margin:20px 0;background:white;border:1px solid var(--line);border-radius:14px}
+.result h2{margin:0 0 8px}.score{font-size:34px;font-weight:800;color:var(--blue)}
+.review{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:25px}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}.question{padding:16px}.toolbar{align-items:stretch}.toolbar button{flex:1}}
+</style>
+</head>
+<body>
+<header><div class="head"><h1>ICT – Interactive MCQ Quiz</h1><p>Second Preparatory Grade • Weekly Assessments & Homework</p></div></header>
+<main class="wrap">
+  <div class="stats">
+    <div class="stat"><small>Total Questions</small><strong id="total">16</strong></div>
+    <div class="stat"><small>Answered</small><strong id="answered">0</strong></div>
+    <div class="stat"><small>Remaining</small><strong id="remaining">16</strong></div>
+  </div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="toolbar">
+    <div><strong>Choose the best answer for each question.</strong><div style="color:#64748b;font-size:13px">Your result and correct answers will appear after submission.</div></div>
+    <button class="secondary" id="resetTop" type="button">Reset Quiz</button>
+  </div>
+  <section id="quiz"></section>
+  <div class="toolbar">
+    <span style="color:#64748b;font-size:13px">Check your answers when you finish.</span>
+    <button class="primary" id="submit" type="button">Submit Answers</button>
+  </div>
+  <section class="result" id="result" aria-live="polite"></section>
+</main>
+<footer>ICT Practice Quiz • Based on the uploaded Second Preparatory Grade assessment PDF</footer>
+<script>
+const questions = [{"question": "Which of the following is an innovative solution to reduce waste at home?", "options": ["Throwing waste in the streets", "Not caring about the matter", "Increasing waste", "Using robots to sort waste"], "answer": 3, "source": "Week 1"}, {"question": "One of the major challenges facing the widespread implementation of smart systems is:", "options": ["High cost and maintenance requirements", "Increased speed", "Reduced efficiency", "No need for them"], "answer": 0, "source": "Week 1"}, {"question": "Systems that combine robotics, IoT, and AI are called:", "options": ["Traditional systems", "Intelligent interconnected systems", "Manual systems", "Mechanical systems"], "answer": 1, "source": "Week 2"}, {"question": "The primary role of sensors in IoT is:", "options": ["Sending text messages", "Repairing networks", "Collecting and linking data", "Manually operating devices"], "answer": 2, "source": "Week 2"}, {"question": "Which of the following is an example of ransomware?", "options": ["A program that displays annoying ads", "A program that encrypts your files and demands a ransom to decrypt them", "A program that cleans temporary files on your device", "A program that helps you organize your files"], "answer": 1, "source": "Week 3"}, {"question": "What is the primary goal of Distributed Denial of Service (DDoS) attacks?", "options": ["Stealing user data", "Disabling a website or online service", "Spreading false information", "Spying on user communications"], "answer": 1, "source": "Week 3"}, {"question": "The term ‘security updates’ means:", "options": ["Changing the appearance of the operating system", "Adding new features to the software", "Fixing security vulnerabilities in software and hardware", "Speeding up application performance"], "answer": 2, "source": "Week 4"}, {"question": "The bots used in DDoS attacks are called:", "options": ["Advanced artificial intelligence programs", "Supercomputers", "A group of secure servers", "A network of compromised devices controlled remotely"], "answer": 3, "source": "Week 4"}, {"question": "Which of the following is one of the types of big data?", "options": ["Engineering data", "Formal data", "Structured data", "Pivot data"], "answer": 2, "source": "Week 5"}, {"question": "Which of the five (5Vs) characteristics of big data refers to the reliability and quality of data, as data may sometimes contain errors or inaccurate information?", "options": ["Volume", "Velocity", "Value", "Veracity"], "answer": 3, "source": "Week 5"}, {"question": "What is the first stage of big data processing?", "options": ["Data storage", "Data cleaning", "Big data collection", "Data analysis"], "answer": 2, "source": "Week 6"}, {"question": "Which of the following uses of big data relies on understanding customer behavior and improving recommendations using advanced analytics?", "options": ["Artificial intelligence", "Machine learning and deep learning", "Network monitoring and cybersecurity", "E-commerce"], "answer": 3, "source": "Week 6"}, {"question": "Which of the following is an example of an advanced AI application that relies on massive sets of images and videos to train its models?", "options": ["Natural Language Processing (NLP)", "Computer Vision", "Big Data Aggregation", "Task Automation"], "answer": 1, "source": "Week 7"}, {"question": "Big data helps machine learning algorithms automate tasks in fields such as:", "options": ["Customer Service", "Logistics", "Financial Services", "All of the above"], "answer": 3, "source": "Week 7"}, {"question": "What is meant by the principle of ‘Ease of Navigation’ in user experience design?", "options": ["That the colors are bright and cheerful on all pages", "That the user can easily and quickly reach what they are looking for", "That the website contains as many pages as possible", "That the locations of menus differ on each page for a new experience"], "answer": 1, "source": "Week 8"}, {"question": "What is meant by the principle of ‘Consistency’ in interface design?", "options": ["That the shapes of buttons and colors change on every page", "That elements are displayed randomly to attract attention", "That there is variation in page design to break boredom", "That the interface maintains the same style and appearance for buttons and elements on all pages"], "answer": 3, "source": "Week 8"}];
+const quiz = document.getElementById('quiz');
+const answers = Array(questions.length).fill(null);
+let submitted = false;
+document.getElementById('total').textContent = questions.length;
+
+function render(){
+  quiz.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const card=document.createElement('article'); card.className='question';
+    const top=document.createElement('div');top.className='qtop';
+    top.innerHTML=`<span>Question ${i+1} of ${questions.length}</span><span>${q.source}</span>`;
+    const title=document.createElement('h3');title.textContent=q.question;
+    card.append(top,title);
+    q.options.forEach((opt,j)=>{
+      const label=document.createElement('label');label.className='option'+(answers[i]===j?' selected':'');
+      const radio=document.createElement('input');radio.type='radio';radio.name='q'+i;radio.value=j;
+      radio.checked=answers[i]===j;radio.disabled=submitted;
+      radio.addEventListener('change',()=>{answers[i]=j;updateStats();render();});
+      const span=document.createElement('span');span.textContent=String.fromCharCode(65+j)+'. '+opt;
+      label.append(radio,span);
+      if(submitted){if(j===q.answer)label.classList.add('correct');else if(answers[i]===j)label.classList.add('wrong');}
+      card.append(label);
+    });
+    if(submitted){
+      const fb=document.createElement('div');fb.className='feedback '+(answers[i]===q.answer?'good':'bad');
+      fb.textContent=answers[i]===q.answer?'Correct answer':'Correct answer: '+String.fromCharCode(65+q.answer)+'. '+q.options[q.answer];
+      card.append(fb);
+    }
+    quiz.append(card);
+  });
+  updateStats();
+}
+function updateStats(){
+ const count=answers.filter(x=>x!==null).length;
+ document.getElementById('answered').textContent=count;
+ document.getElementById('remaining').textContent=questions.length-count;
+ document.getElementById('bar').style.width=(count/questions.length*100)+'%';
+}
+function submitQuiz(){
+ if(submitted)return;
+ if(answers.some(x=>x===null)){
+   const left=answers.filter(x=>x===null).length;
+   if(!confirm(`You still have ${left} unanswered question(s). Submit anyway?`))return;
+ }
+ submitted=true;
+ const score=answers.reduce((s,a,i)=>s+(a===questions[i].answer?1:0),0);
+ const result=document.getElementById('result');
+ result.style.display='block';
+ result.innerHTML=`<h2>Quiz Result</h2><div class="score">${score} / ${questions.length}</div><p>You answered ${answers.filter(x=>x!==null).length} question(s).</p><div class="review"><strong>${Math.round(score/questions.length*100)}% – ${score===questions.length?'Excellent work!':score>=questions.length*.7?'Good job!':'Keep practicing!'}</strong></div>`;
+ document.getElementById('submit').disabled=true;
+ render();
+ result.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetQuiz(){
+ if(submitted||answers.some(x=>x!==null)){
+  if(!confirm('Are you sure you want to reset the quiz?'))return;
+ }
+ answers.fill(null);submitted=false;
+ document.getElementById('result').style.display='none';
+ document.getElementById('submit').disabled=false;
+ render();window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('submit').addEventListener('click',submitQuiz);
+document.getElementById('resetTop').addEventListener('click',resetQuiz);
+render();
+</script>
+</body></html>
